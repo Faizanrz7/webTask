@@ -1,0 +1,91 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;   
+}
+
+body {
+    background: #286090;
+    /* background: linear-gradient(#ef3b36, #ffffff); */
+    background: linear-gradient(#283c86, #45a247);
+    height: 100vh;
+
+}
+.heading {
+    color: white;
+    text-align: center;
+    font-weight: 800;
+    font-size: xxx-large;
+}
+
+
+.form {
+    float: left;
+    width: 100%;
+    height: 70vh;
+    background: transparent;
+    background: linear-gradient(#283c86, #45a247);
+    padding: 25px;
+    border: 2px solid white;
+    border-radius: 20px;
+    margin-top: 15vh;
+    box-shadow: 0 0 30px 10px;
+}
+.form input {
+    margin: 10px 0;
+    height: 50px;
+    background-color: transparent;
+    color: white;
+    font-size: x-large;
+    border: 2px solid white;
+}
+
+
+#gender {
+    margin: 10px 0;
+    height: 50px;
+    background-color: transparent;
+    font-size: x-large;
+    border: 2px solid white;
+}
+
+.name {
+    display: flex;
+    gap: 5px;
+
+}
+
+
+.submit-button {
+    text-align: center;
+    margin: 20px 0;
+    color: white;
+    width: 100%;
+}
+
+
+.submit-button input {
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 20px;
+    width: 70%;
+    height: 50px;
+    font-size: x-larger;
+    font-weight: 700;
+}
+
+.submit-button input:hover {
+    font-size: xx-large;
+}
+
+
+
+@media (max-width: 768px) {
+    .form {
+        width: 100%;
+        height: 75vh;
+        /* background: transparent; */
+        border: 2px solid white;
+        /* padding: 50px; */
+    }
+}
