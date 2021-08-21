@@ -16,8 +16,41 @@
         <form action="">
             <input type="email" id="email" placeholder="Email">
             <input type="password" id="password" placeholder="Password" >
-            <input type="submit">
+            <input type="submit" onclick="login()">
         </form>
     </div>
+
+    <script>
+        $('form').submit(function(e) {
+            e.preventDefault();
+        });
+
+        function login() {
+            var email = $('#email').val();
+            var password = $('#password').val();
+            // alert(email + "  " + password);
+            var token = "<?php echo password_hash("studentlogin", PASSWORD_DEFAULT);?>";
+            if(password != "" && email !=""){
+                $.ajax({
+                    type:'POST',
+                    url:"ajax/login.php",
+                    data:{email: email, password: password, token:token},
+                    success:function(data){
+                        // alert(data);
+                        // window.location = "./dashboard.php";
+                        if(data == 0){
+                            window.location = "dashboard.php";
+                        }
+                        else {
+                            alert(data); 
+                        }
+                    }
+                });
+            }
+            else {
+                alert("Fill all the fields");
+            }
+        }
+    </script>
 </body>
 </html>
