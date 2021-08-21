@@ -2,7 +2,7 @@
     include('connection.php');
     session_start();
     $_SESSION['nam'] = "Faizan";
-    if(isset($_POST['token']) && password_verify('studentlogin', $_POST['token'])){
+    if(isset($_POST['token']) && password_verify('teacherlogin', $_POST['token'])){
         $email = $_POST['email'];
         $password = $_POST['password'];
         

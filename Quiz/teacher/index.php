@@ -29,7 +29,7 @@
             var email = $('#email').val();
             var password = $('#password').val();
             // alert(email + "  " + password);
-            var token = "<?php echo password_hash("studentlogin", PASSWORD_DEFAULT);?>";
+            var token = "<?php echo password_hash("teacherlogin", PASSWORD_DEFAULT);?>";
             if(password != "" && email !=""){
                 $.ajax({
                     type:'POST',
