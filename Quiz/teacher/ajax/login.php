@@ -6,7 +6,7 @@
         $email = $_POST['email'];
         $password = $_POST['password'];
         
-        $query = $db->prepare('SELECT * FROM students WHERE email=?');
+        $query = $db->prepare('SELECT * FROM users_details WHERE email=?');
         $data = array($email);
         $execute = $query->execute($data);
         if($query->rowcount() > 0){

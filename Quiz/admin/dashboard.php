@@ -10,6 +10,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hello <?php echo $_SESSION['nam']?></h1>
+    <h1>Hello <?php echo $_SESSION['name']?></h1>
 </body>
 </html>
