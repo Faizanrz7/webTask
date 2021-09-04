@@ -6,14 +6,18 @@
         $email = $_POST['email'];
         $password = $_POST['password'];
         
-        $query = $db->prepare('SELECT * FROM users_details WHERE email=?');
+        // $query = $db->prepare('SELECT * FROM users_details WHERE email=?');
+        $query = $db->prepare('SELECT * FROM teachers WHERE email=?');
+
         $data = array($email);
         $execute = $query->execute($data);
+        // echo $query->fetch();
         if($query->rowcount() > 0){
             while($datarow=$query->fetch()){
+                // echo $datarow;
                 if(password_verify($password, $datarow['password'])){
                     $_SESSION['id'] = $datarow['uid'];
-                    $_SESSION['name'] = $datarow['name'];
+                    // $_SESSION['name'] = $datarow['name'];
                     echo 0;
                 }
                 else {

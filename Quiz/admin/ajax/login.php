@@ -13,7 +13,7 @@
             while($datarow=$query->fetch()){
                 if(password_verify($password, $datarow['password'])){
                     $_SESSION['id'] = $datarow['uid'];
-                    $_SESSION['name'] = $datarow['name'];
+                    $_SESSION['adminName'] = $datarow['name'];
                     echo 0;
                 }
                 else {
