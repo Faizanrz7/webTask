@@ -1,5 +1,6 @@
 <?php
     session_start();
+    if(isset($_SESSION['adminName'])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,15 +13,50 @@
     <script src=" https://code.jquery.com/jquery-3.0.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Document</title>
+
+    <style>
+        .container {
+            height: 30px;
+            display: flex;
+            align-items: center;
+            /* text-align:center; */
+            justify-content: center;
+            color: white;
+        }
+        input {
+            width: 100%;
+            margin-bottom: 20px;
+            border: none;
+            /* border-bottom: 1px solid #fff; */
+            border-bottom: 1px solid #fff;
+            background: transparent;
+            outline: none;
+            height: 40px;
+            color: #fff;
+            /* color: #333; */
+            font-size: 16px;
+        }
+
+        input[type=submit]{
+            border: none;
+            outline: none;
+            background: #fff;
+            /* background: #03a9f4; */
+            /* color: #333; */
+            color: #333;
+            font-size: 20px;
+            display: block;
+            margin-top: 25px;
+        }
+    </style>
 </head>
 <body>
     <div class="listContainer">
+        <span id="Name">QUIZ PORTAL</span>
         <div class="list">
             <ul>
-                <!-- <li id="uniLi" class="active" onclick="showUni()"><a src = "addUniversity.php">Add University</a></li>
-                <li id="teacherLi" onclick="showTeacher()"><a src = "addTeacher.php">Add Teacher</a></li>
-                <li id="classLi" onclick="showClass()"><a src = "addClass.php">Add Class</a></li> -->
-                <li class="active"><a href="addUniversity.php">Add University</a></li>
+                <li class="active"><a href="dashboard.php">HOME</a></li>
+                <li><a href="addUniversity.php">Add University</a></li>
                 <li><a href="addClass.php">Add Class</a></li>
                 <li><a href="addTeacher.php">Add Teacher</a></li>
             </ul>
@@ -28,65 +64,35 @@
     </div>
     <div class="mainContainer">
         <div class="heading">
-            <h1>Admin Page</h1>
+            <!-- <h1>Hello </h1> -->
+            <h1>WELCOME <?php echo $_SESSION['adminName'];?></h1>
         </div>
         <div class="formContainer">
-            <div class="container" id = "addUni">
-                <h1>University Details</h1>
-                <form action="">
-                    <input type="text" id="uname" placeholder="University Name" class="form-control">
-                    <input type="submit" onclick="addUniversity()" class="form-control">
-                </form>
-            </div>
-            <div class="container hide" id="addTeacher">
-                <h1>Teacher Details</h1>
-                <form action="">
-                    <input type="text" id="tname" placeholder="Teacher Name" class="form-control">
-                    <div id="uniListInTeacher"></div>
-                    <div id="classList"></div>
-                    <input type="submit" onclick="addTe()" class="form-control">
-                </form>
-            </div>
-            <div class="container hide" id="adClass">
-            <h1>Class Details</h1>
-                <form action="">
-                    <input type="text" id="className" placeholder="Class Name" class="form-control">
-                    <div id="uniListInClass"></div>
-                    <input type="submit" onclick="addClass()" class="form-control">
-                </form>
-            </div>
+        <!-- <div class="container" id="addUni">
+            <h1>University Details</h1>
+            <form action="">
+                <input type="text" id="uname" placeholder="University Name">
+                <input type="submit" onclick="addUni()">
+            </form>
+        </div> -->
+
+        <div class="container">
+            University List
+        </div>
+        <div class="container">
+            Class List
+        </div>
+        <div class="container">
+            Teacher List
         </div>
     </div>
 
     <script>
-        var addUni = $('#addUni');
-        var addTeacher = $('#addTeacher');
-        var adclass = $('#adClass');
-        
-        var uniLi = $('#uniLi');
-        var teacherLi = $('#teacherLi');
-        var classLi = $('#classLi');
-
-        // console.log(addUni);
-
         $('form').submit(function(e) {
             e.preventDefault();
         });
 
-        function getUni() {
-            var token = "<?php echo password_hash("getUni", PASSWORD_DEFAULT);?>";
-            $.ajax({
-                type:'POST',
-                url:"ajax/getUni.php",
-                data:{token:token},
-                success:function(data){
-                    $('#uniListInTeacher').html(data);
-                    $('#uniListInClass').html(data);
-                }
-            });
-        }
-
-        function addUniversity() {
+        function addUni() {
             var uname = $('#uname').val();
             // alert(email + "  " + password);
             var token = "<?php echo password_hash("addUni", PASSWORD_DEFAULT);?>";
@@ -97,63 +103,28 @@
                     data:{uname: uname, token:token},
                     success:function(data){
                         alert(data);
+                        // window.location = "./dashboard.php";
+                        // if(data == 0){
+                        //     // window.location = "dashboard.php";
+                        //     alert("University Added");
+                        // }
+                        // else {
+                        //     alert(data); 
+                        // }
                     }
                 });
             }
             else {
                 alert("Fill all the fields");
             }
-        }
-
-        function addTe() {
-            alert('Teacher');
-            var tname = $('#tname').val();
-            // alert(email + "  " + password);
-            var token = "<?php echo password_hash("addTeacher", PASSWORD_DEFAULT);?>";
-            if(tname != ""){
-                $.ajax({
-                    type:'POST',
-                    url:"ajax/addTeacher.php",
-                    data:{tname: tname, token:token},
-                    success:function(data){
-                        alert(data);
-                    }
-                });
-            }
-            else {
-                alert("Fill all the fields");
-            }
-        }
-
-        function showUni() {
-            addUni.removeClass('hide');
-            addTeacher.addClass('hide');
-            adclass.addClass('hide');
-
-            uniLi.addClass('active');
-            teacherLi.removeClass('active');
-            classLi.removeClass('active');
-        }
-        function showTeacher() {
-            getUni();
-            addUni.addClass('hide');
-            addTeacher.removeClass('hide');
-            adclass.addClass('hide');
-
-            uniLi.removeClass('active');
-            teacherLi.addClass('active');
-            classLi.removeClass('active');
-        }
-        function showClass() {
-            getUni();
-            addUni.addClass('hide');
-            addTeacher.addClass('hide');
-            adclass.removeClass('hide');
-
-            uniLi.removeClass('active');
-            teacherLi.removeClass('active');
-            classLi.addClass('active');
         }
     </script>
 </body>
 </html>
+
+<?php
+    }
+else {
+    echo "You are not authorized";
+}
+?>

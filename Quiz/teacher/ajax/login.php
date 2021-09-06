@@ -6,8 +6,8 @@
         $email = $_POST['email'];
         $password = $_POST['password'];
         
-        // $query = $db->prepare('SELECT * FROM users_details WHERE email=?');
-        $query = $db->prepare('SELECT * FROM teachers WHERE email=?');
+        // $query = $db->prepare('SELECT * FROM teacher WHERE email=?');
+        $query = $db->prepare('SELECT * FROM teacher WHERE email=?');
 
         $data = array($email);
         $execute = $query->execute($data);
@@ -17,7 +17,7 @@
                 // echo $datarow;
                 if(password_verify($password, $datarow['password'])){
                     $_SESSION['id'] = $datarow['uid'];
-                    // $_SESSION['name'] = $datarow['name'];
+                    $_SESSION['teacherName'] = $datarow['name'];
                     echo 0;
                 }
                 else {

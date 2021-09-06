@@ -52,6 +52,7 @@
     <span id="Name">WELCOME <?php echo $_SESSION['adminName'];?></span>
         <div class="list">
             <ul>
+                <li><a href="dashboard.php">HOME</a></li>
                 <li><a href="addUniversity.php">Add University</a></li>
                 <li><a href="addClass.php">Add Class</a></li>
                 <li  class="active"><a href="addTeacher.php">Add Teacher</a></li>

@@ -37,9 +37,9 @@
                     data:{email: email, password: password, token:token},
                     success:function(data){
                         // alert(data);
-                        // window.location = "./dashboard.php";
                         if(data == 0){
-                            window.location = "addUniversity.php";
+                            window.location = "./dashboard.php";
+                            // window.location = "addUniversity.php";
                         }
                         else {
                             alert(data); 
