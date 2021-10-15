@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(isset($_SESSION['adminName'])){
+    if(isset($_SESSION['teacherName'])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,8 +17,19 @@
 
     <style>
         .container {
-            height: 500px;
+            height: 100px;
+            width: 100%;
             margin-top: 30px;
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            align-items: center;
+        }
+        form{
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            align-items: center;
         }
         input,select {
             width: 100%;
@@ -63,39 +74,40 @@
 </head>
 <body>
     <div class="listContainer">
-    <span id="Name"><?php echo $_SESSION['adminName'];?></span>
+    <span id="Name">WELCOME <?php echo $_SESSION['teacherName'];?></span>
         <div class="list">
             <ul>
                 <li><a href="dashboard.php">HOME</a></li>
-                <li><a href="addUniversity.php">Add University</a></li>
-                <li><a href="addClass.php">Add Class</a></li>
-                <li  class="active"><a href="addTeacher.php">Add Teacher</a></li>
+                <li><a href="addStudent.php">Add Student</a></li>
+                <li class="active"><a href="addTest.php">Add Test</a></li>
+                <!-- <li><a href="addTeacher.php">Add Teacher</a></li> -->
+                <li><a href="addQuestion.php">Add Question</a></li>
                 <li><a onclick="logout()">Log Out</a></li>
             </ul>
         </div>
     </div>
     <div class="mainContainer">
         <div class="heading">
-            <h1>Add Teacher</h1>
+            <h1>Add Test</h1>
         </div>
         <div class="formContainer">
             <div class="container" id="addTeacher">
-                <h1>Teacher Details</h1>
+                <!-- <h1>Test Details</h1> -->
                 <form action="">
-                    <input type="text" id="tname" placeholder="Teacher Name">
-                    <input type="email" id = "email" placeholder="Email">
-                    <!-- <div id="uniList"></div> -->
+                    <input type="text" id="testName" placeholder="Test Name">
+                    <!-- <input type="email" id = "email" placeholder="Email"> -->
+                    <div id="testList"></div>
                     <!-- <div id="classList"></div> -->
-                    <select name="university" id="university" onchange="getClass()">
+                    <!-- <select name="university" id="university" onchange="getClass()">
                         <option value="0">SELECT UNIVERSITY</option>
-                    </select>
-                    <select name="class" id="class">
+                    </select> -->
+                    <!-- <select name="class" id="class">
                         <option value="0">SELECT CLASS</option>
-                    </select>
-                    <input type="submit" onclick="addTe()">
+                    </select> -->
+                    <input type="submit" onclick="addTest()">
                 </form>
             </div>
-            <div class="table-container"></div>
+            <div class="table-container" style = "margin-top: 50px;"></div>
         </div>
     </div>
 
@@ -104,22 +116,22 @@
             e.preventDefault();
         });
 
-        getUniForClass();
-        getTeacher();
+        // getUniForClass();
+        getTest();
 
         function addTe() {
-            var tname = $('#tname').val();
+            var testName = $('#testName').val();
             var uid = $('#university').val();
             var cid = $('#class').val();
             // alert(cid);
             var email = $('#email').val();
             // alert(email + "  " + password);
             var token = "<?php echo password_hash("addTeacher", PASSWORD_DEFAULT);?>";
-            if(tname != ""){
+            if(testName != ""){
                 $.ajax({
                     type:'POST',
                     url:"ajax/addTeacher.php",
-                    data:{tname: tname,email:email,uid:uid,cid:cid, token:token},
+                    data:{testName: testName,email:email,uid:uid,cid:cid, token:token},
                     success:function(data){
                         alert(data);
                         window.location.reload();
@@ -166,13 +178,14 @@
         }
 
 
-        function getTeacher(){
+        function getTest(){
             // var uid = $('#university').val();
-            var token = "<?php echo password_hash("getTeacherList", PASSWORD_DEFAULT);?>";
+            var token = "<?php echo password_hash("getTestList", PASSWORD_DEFAULT);?>";
+            var cid = "<?php echo $_SESSION['cid'];?>";
             $.ajax({
                 type:'POST',
-                url:"ajax/getTeacher.php",
-                data:{token:token},
+                url:"ajax/getTestList.php",
+                data:{token:token, cid: cid},
                 success:function(data){
                     // $('.tab').html(data);
                     $('.table-container').html(data);
@@ -181,11 +194,69 @@
             });
         }
 
+        function addStudent(){
+            var testName = $('#testName').val();
+            // var uid = $('#university').val();
+            // var cid = $('#class').val();
+            // alert(cid);
+            var email = $('#email').val();
+            // alert(email + "  " + password);
+            var token = "<?php echo password_hash("addStudent", PASSWORD_DEFAULT);?>";
+            var cid = "<?php echo $_SESSION['cid'];?>";
+            if(testName != ""){
+                $.ajax({
+                    type:'POST',
+                    url:"ajax/addStudent.php",
+                    data:{testName: testName,email:email, cid:cid, token:token},
+                    success:function(data){
+                        alert(data);
+                        window.location.reload();
+                        // window.location = "./dashboard.php";
+                        // if(data == 0){
+                        //     // window.location = "dashboard.php";
+                        //     alert("University Added");
+                        // }
+                        // else {
+                        //     alert(data); 
+                        // }
+                    }
+                });
+            }
+            else {
+                alert("Fill all the fields");
+            }
+        }
+
+        function addTest(){
+            var testName = $('#testName').val();
+            // var uid = $('#university').val();
+            // var cid = $('#class').val();
+            // alert(cid);
+            // var email = $('#email').val();
+            // alert(email + "  " + password);
+            var token = "<?php echo password_hash("addTest", PASSWORD_DEFAULT);?>";
+            var cid = "<?php echo $_SESSION['cid'];?>";
+            if(testName != ""){
+                $.ajax({
+                    type:'POST',
+                    url:"ajax/addTest.php",
+                    data:{testName: testName, cid:cid, token:token},
+                    success:function(data){
+                        alert(data);
+                        window.location.reload();
+                    }
+                });
+            }
+            else {
+                alert("Fill all the fields");
+            }
+        }
+
         function logout(){
             // alert("logout");
             $.ajax({
                 type:'POST',
-                url:"../ajax/logout.php",
+                url:"ajax/logout.php",
                 data:{},
                 success:function(data){
                     // $('.tab').html(data);

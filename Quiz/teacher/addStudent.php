@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(isset($_SESSION['adminName'])){
+    if(isset($_SESSION['teacherName'])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +17,7 @@
 
     <style>
         .container {
-            height: 500px;
+            height: 350px;
             margin-top: 30px;
         }
         input,select {
@@ -63,39 +63,40 @@
 </head>
 <body>
     <div class="listContainer">
-    <span id="Name"><?php echo $_SESSION['adminName'];?></span>
+    <span id="Name">WELCOME <?php echo $_SESSION['teacherName'];?></span>
         <div class="list">
             <ul>
                 <li><a href="dashboard.php">HOME</a></li>
-                <li><a href="addUniversity.php">Add University</a></li>
-                <li><a href="addClass.php">Add Class</a></li>
-                <li  class="active"><a href="addTeacher.php">Add Teacher</a></li>
+                <li class="active"><a href="addStudent.php">Add Student</a></li>
+                <li><a href="addTest.php">Add Test</a></li>
+                <li><a href="addQuestion.php">Add Question</a></li>
+                <!-- <li><a href="addTeacher.php">Add Teacher</a></li> -->
                 <li><a onclick="logout()">Log Out</a></li>
             </ul>
         </div>
     </div>
     <div class="mainContainer">
         <div class="heading">
-            <h1>Add Teacher</h1>
+            <h1>Add Student</h1>
         </div>
         <div class="formContainer">
             <div class="container" id="addTeacher">
-                <h1>Teacher Details</h1>
+                <h1>Student Details</h1>
                 <form action="">
-                    <input type="text" id="tname" placeholder="Teacher Name">
+                    <input type="text" id="sname" placeholder="Student Name">
                     <input type="email" id = "email" placeholder="Email">
                     <!-- <div id="uniList"></div> -->
                     <!-- <div id="classList"></div> -->
-                    <select name="university" id="university" onchange="getClass()">
+                    <!-- <select name="university" id="university" onchange="getClass()">
                         <option value="0">SELECT UNIVERSITY</option>
-                    </select>
-                    <select name="class" id="class">
+                    </select> -->
+                    <!-- <select name="class" id="class">
                         <option value="0">SELECT CLASS</option>
-                    </select>
-                    <input type="submit" onclick="addTe()">
+                    </select> -->
+                    <input type="submit" onclick="addStudent()">
                 </form>
             </div>
-            <div class="table-container"></div>
+            <div class="table-container" style = "margin-top: 50px;"></div>
         </div>
     </div>
 
@@ -104,22 +105,23 @@
             e.preventDefault();
         });
 
-        getUniForClass();
-        getTeacher();
+        // getUniForClass();
+        // getTeacher();
+        getStudentList();
 
         function addTe() {
-            var tname = $('#tname').val();
+            var sname = $('#sname').val();
             var uid = $('#university').val();
             var cid = $('#class').val();
             // alert(cid);
             var email = $('#email').val();
             // alert(email + "  " + password);
             var token = "<?php echo password_hash("addTeacher", PASSWORD_DEFAULT);?>";
-            if(tname != ""){
+            if(sname != ""){
                 $.ajax({
                     type:'POST',
                     url:"ajax/addTeacher.php",
-                    data:{tname: tname,email:email,uid:uid,cid:cid, token:token},
+                    data:{sname: sname,email:email,uid:uid,cid:cid, token:token},
                     success:function(data){
                         alert(data);
                         window.location.reload();
@@ -165,6 +167,24 @@
             });
         }
 
+        
+        function getStudentList(){
+            // var uid = $('#university').val();
+            var token = "<?php echo password_hash("getStudentList", PASSWORD_DEFAULT);?>";
+            var cid = "<?php echo $_SESSION['cid'];?>";
+            $.ajax({
+                type:'POST',
+                url:"ajax/getStudentList.php",
+                data:{token:token, cid:cid},
+                success:function(data){
+                    // $('.tab').html(data);
+                    // alert(data);
+                    $('.table-container').html(data);
+                    // $('#uniListInClass').html(data);
+                }
+            });
+        }
+
 
         function getTeacher(){
             // var uid = $('#university').val();
@@ -181,11 +201,44 @@
             });
         }
 
+        function addStudent(){
+            var sname = $('#sname').val();
+            // var uid = $('#university').val();
+            // var cid = $('#class').val();
+            // alert(cid);
+            var email = $('#email').val();
+            // alert(email + "  " + password);
+            var token = "<?php echo password_hash("addStudent", PASSWORD_DEFAULT);?>";
+            var cid = "<?php echo $_SESSION['cid'];?>";
+            if(sname != ""){
+                $.ajax({
+                    type:'POST',
+                    url:"ajax/addStudent.php",
+                    data:{sname: sname,email:email, cid:cid, token:token},
+                    success:function(data){
+                        alert(data);
+                        window.location.reload();
+                        // window.location = "./dashboard.php";
+                        // if(data == 0){
+                        //     // window.location = "dashboard.php";
+                        //     alert("University Added");
+                        // }
+                        // else {
+                        //     alert(data); 
+                        // }
+                    }
+                });
+            }
+            else {
+                alert("Fill all the fields");
+            }
+        }
+
         function logout(){
             // alert("logout");
             $.ajax({
                 type:'POST',
-                url:"../ajax/logout.php",
+                url:"ajax/logout.php",
                 data:{},
                 success:function(data){
                     // $('.tab').html(data);
@@ -196,6 +249,8 @@
                 }
             });
         }
+
+        
 
     </script>
 </body>

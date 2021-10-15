@@ -46,13 +46,14 @@
 </head>
 <body>
     <div class="listContainer">
-    <span id="Name">WELCOME <?php echo $_SESSION['adminName'];?></span>
+    <span id="Name"><?php echo $_SESSION['adminName'];?></span>
         <div class="list">
             <ul>
                 <li><a href="dashboard.php">HOME</a></li>
                 <li><a href="addUniversity.php">Add University</a></li>
                 <li class="active"><a href="addClass.php">Add Class</a></li>
                 <li><a href="addTeacher.php">Add Teacher</a></li>
+                <li><a onclick="logout()">Log Out</a></li>
             </ul>
         </div>
     </div>
@@ -73,6 +74,7 @@
                 <input type="submit" onclick="adClass()">
             </form>
         </div>
+        <div class="table-container" style = "margin-top: 50px;"></div>
     </div>
 
     <script>
@@ -82,6 +84,7 @@
 
         getUni();
         // getClass();
+        getClassList();
 
         function getUni() {
             var token = "<?php echo password_hash("getUni", PASSWORD_DEFAULT);?>";
@@ -137,6 +140,7 @@
                     data:{cname: cname,uid:uid, token:token},
                     success:function(data){
                         alert(data);
+                        window.location.reload();
                         // window.location = "./dashboard.php";
                         // if(data == 0){
                         //     // window.location = "dashboard.php";
@@ -153,6 +157,36 @@
             }
         }
 
+        function getClassList(){
+            // var uid = $('#university').val();
+            var token = "<?php echo password_hash("getClassList", PASSWORD_DEFAULT);?>";
+            $.ajax({
+                type:'POST',
+                url:"ajax/getClassList.php",
+                data:{token:token},
+                success:function(data){
+                    // $('.tab').html(data);
+                    $('.table-container').html(data);
+                    // $('#uniListInClass').html(data);
+                }
+            });
+        }
+
+        function logout(){
+            // alert("logout");
+            $.ajax({
+                type:'POST',
+                url:"../ajax/logout.php",
+                data:{},
+                success:function(data){
+                    // $('.tab').html(data);
+                    // $('.table-container').html(data);
+                    // $('#uniListInClass').html(data);
+                    // alert("Redirecting")
+                    window.location.href = "./index.php"
+                }
+            });
+        }
         
     </script>
 </body>

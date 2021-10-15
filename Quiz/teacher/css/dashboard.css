@@ -14,7 +14,7 @@ body {
 
 .listContainer {
     background-color: #03a9f4;
-    height: 150vh;
+    height: 100vh;
     width: 350px;
 }
 
@@ -85,9 +85,7 @@ li:hover{
 }
 .heading h1 {
     width: 100%;
-    /* color: #03a9f4; */
-    color: #fff;
-    font-weight: 900;
+    color: #03a9f4;
     text-transform: uppercase;
 }
 

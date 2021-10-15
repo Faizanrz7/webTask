@@ -16,8 +16,8 @@
             while($datarow=$query->fetch()){
                 // echo $datarow;
                 if(password_verify($password, $datarow['password'])){
-                    $_SESSION['id'] = $datarow['uid'];
                     $_SESSION['teacherName'] = $datarow['name'];
+                    $_SESSION['cid'] = $datarow['cid'];
                     echo 0;
                 }
                 else {

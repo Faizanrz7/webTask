@@ -6,7 +6,7 @@
         $email = $_POST['email'];
         $password = $_POST['password'];
         
-        $query = $db->prepare('SELECT * FROM users_details WHERE email=?');
+        $query = $db->prepare('SELECT * FROM student WHERE email=?');
         $data = array($email);
         $execute = $query->execute($data);
         if($query->rowcount() > 0){
@@ -16,8 +16,9 @@
                 if(password_verify($password, $datarow['password'])){
                 // if($password == $datarow['password']){
                     // echo  $datarow['password'];
-                    $_SESSION['id'] = $datarow['uid'];
-                    $_SESSION['name'] = $datarow['name'];
+                    $_SESSION['sid'] = $datarow['id'];
+                    $_SESSION['studentName'] = $datarow['name'];
+                    $_SESSION['cid'] = $datarow['cid'];
                     echo 0;
                 }
                 else {
