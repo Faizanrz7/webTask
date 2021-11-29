@@ -11,6 +11,18 @@
     <script src=" https://code.jquery.com/jquery-3.0.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Document</title>
+
+    <style>
+        .table-container {
+            width: 450px;
+            
+        }
+
+        table {
+            width: 100%;        
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <h1>Hello <?php echo $_SESSION['studentName']?></h1>
@@ -60,7 +72,7 @@
                         // else {
                         //     alert(data); 
                         // }
-                        alert("Starting Test" + data);
+                        alert("Starting Test " + data);
                         window.location = "testPage.php";
                     }
                 });

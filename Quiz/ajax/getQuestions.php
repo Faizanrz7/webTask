@@ -3,6 +3,16 @@
     session_start();
     $_SESSION['nam'] = "Faizan";
     // echo "Faizan";
+
+    class QuestionSet {
+        public $question;
+        public $option1;
+        public $option2;
+        public $option3;
+        public $option4;
+        public $answer;
+    }
+
     if(isset($_POST['token']) && password_verify('getQuestions', $_POST['token'])){
         // $email = $_POST['email'];
         // $password = $_POST['password'];
@@ -12,9 +22,24 @@
         $query = $db->prepare('SELECT * FROM questions WHERE tid=?;');
         $data = array($activeTest);
         $execute = $query->execute($data);
-        while($datarow=$query->fetch();){
-            echo $datarow;
+        $questions = array();
+        while($datarow=$query->fetch()){
+            $q = new QuestionSet();
+            $q->question = $datarow['question'];
+            $q->option1 = $datarow['option1'];
+            $q->option2 = $datarow['option2'];
+            $q->option3 = $datarow['option3'];
+            $q->option4 = $datarow['option4'];
+            $q->answer = $datarow['canswer'];
+            
+            array_push($questions, $q);
         }
+
+        $data = json_encode($questions);
+        echo $data;
+?>
+
+<?php  
     }
     else {
         echo "Server Error";
