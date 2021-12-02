@@ -25,20 +25,22 @@
     <h1>Hello <?php echo $_SESSION['studentName']?></h1>
     <h1>Questions for TestID <?php echo $_SESSION['activeTest']?></h1>
     <div class="questionSet">
-        <div class="question">
+        <!-- <div class="question">
             QQQQQQQQQQQQQQQ
         </div>
         <div class="answers">
-            <input type="radio" id="option1" value="data[i].option1">
+            <input type="radio" id="option1" name="options" value="data[i].option1">
             <label for="option1">data[i].option1</label><br>
-            <input type="radio" id="option2"  value="data[i].option2">
+            <input type="radio" id="option2" name="options" value="data[i].option2">
             <label for="css">data[i].option2</label><br>
-            <input type="radio" id="option3" value="data[i].option3">
+            <input type="radio" id="option3" name="options" value="data[i].option3">
             <label for="javascript">data[i].option3</label> <br>
-            <input type="radio" id="option4" +value="data[i].option4">
+            <input type="radio" id="option4" name="options" value="data[i].option4">
             <label for="javascript">data[i].option4</label>  
-        </div>
+        </div> -->
     </div>
+    <button onclick="previousQuestion(questions)">Previous</button>
+    <button onclick="nextQuestion(questions)">Next</button>
     <div class="table-container" style = "margin-top: 50px;"></div>
 
     <script>
@@ -46,9 +48,13 @@
         
         let questionNumber = 0;
         let questions = {};
-        function changeQuestionNumber(number){
+        function nextQuestion(number){
             questionNumber++;
-            // createDivForQuestion(questionNumber);
+            createDivForQuestion(questions);
+        }
+        function previousQuestion(number){
+            questionNumber--;
+            createDivForQuestion(questions);
         }
         function getQuestion(){
             // var uid = $('#university').val();
@@ -61,11 +67,11 @@
                 data:{token:token},
                 success:function(data){
                     // $('.tab').html(data);
-                    alert(data);
+                    // alert(data);
                     data = JSON.parse(data);
-                    for(i in data){
-                        alert(data[i].question);
-                    }
+                    // for(i in data){
+                    //     alert(data[i].question);
+                    // }
                     createDivForQuestion(data);
                     // $('.table-container').html(data);
                     // $('#uniListInClass').html(data);
@@ -74,10 +80,24 @@
         }
 
        function createDivForQuestion(data){
-            alert("in create ");
-            alert(Object.keys(data).length);
+            // questionNumber++;
+            // alert("in create ");
+            // alert(Object.keys(data).length);
             questions = data;
-            alert('Questions : ' + questions[0].question);
+            // alert('Questions : ' + questions[0].question);
+            $(".questionSet").append(`<div class="question">
+            ${questions[questionNumber].question}
+                    </div>
+            <div class="answers">
+                <input type="radio" id="option1" name="options" value="A">
+                <label for="option1">${data[questionNumber].option1}</label><br>
+                <input type="radio" id="option2" name="options" value="B">
+                <label for="css">${data[questionNumber].option2}</label><br>
+                <input type="radio" id="option3" name="options" value="C">
+                <label for="javascript">${data[questionNumber].option3}</label> <br>
+                <input type="radio" id="option4" name="options" value="D">
+                <label for="javascript">${data[questionNumber].option4}</label>  
+            </div>`);
        }
 
     </script>

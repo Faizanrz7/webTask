@@ -43,6 +43,9 @@
             display: block;
             margin-top: 25px;
         }
+        thead {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -135,6 +138,27 @@
                     // $('#uniListInClass').html(data);
                     // alert("Redirecting")
                     window.location.href = "./index.php"
+                }
+            });
+        }
+
+        function deleteUni(uid) {
+            console.log(uid);
+            var token = "<?php echo password_hash("deleteUni", PASSWORD_DEFAULT);?>";
+            $.ajax({
+                type:'POST',
+                url:"ajax/deleteUni.php",
+                data:{uid:uid, token: token},
+                success:function(data){
+                    // $('.tab').html(data);
+                    // $('.table-container').html(data);
+                    // $('#uniListInClass').html(data);
+                    // alert("Redirecting")
+                    // window.location.href = "./index.php"
+                    if(data == 0){
+                        alert("Deleted");
+                        window.location.reload();
+                    }
                 }
             });
         }
