@@ -43,9 +43,10 @@
             display: block;
             margin-top: 25px;
         }
-        thead {
+        th {
             text-align: center;
         }
+        
     </style>
 </head>
 <body>
@@ -73,7 +74,7 @@
                 <input type="submit" onclick="addUni()">
             </form>
         </div>
-        <div class="table-container" style = "margin-top: 50px;"></div>
+        <div class="table-container" style = "margin-top: 20px; width: 900px; text-align; center; height: 300px; overflow: auto;"></div>
     </div>
 
     <script>
@@ -82,7 +83,7 @@
         });
 
         getUniversityList();
-
+        countEverything();
         function addUni() {
             var uname = $('#uname').val();
             // alert(email + "  " + password);
@@ -95,14 +96,6 @@
                     success:function(data){
                         alert(data);
                         window.location.reload();
-                        // window.location = "./dashboard.php";
-                        // if(data == 0){
-                        //     // window.location = "dashboard.php";
-                        //     alert("University Added");
-                        // }
-                        // else {
-                        //     alert(data); 
-                        // }
                     }
                 });
             }
@@ -119,9 +112,7 @@
                 url:"ajax/getUniversityList.php",
                 data:{token:token},
                 success:function(data){
-                    // $('.tab').html(data);
                     $('.table-container').html(data);
-                    // $('#uniListInClass').html(data);
                 }
             });
         }
@@ -133,10 +124,6 @@
                 url:"../ajax/logout.php",
                 data:{},
                 success:function(data){
-                    // $('.tab').html(data);
-                    // $('.table-container').html(data);
-                    // $('#uniListInClass').html(data);
-                    // alert("Redirecting")
                     window.location.href = "./index.php"
                 }
             });
@@ -150,15 +137,23 @@
                 url:"ajax/deleteUni.php",
                 data:{uid:uid, token: token},
                 success:function(data){
-                    // $('.tab').html(data);
-                    // $('.table-container').html(data);
-                    // $('#uniListInClass').html(data);
-                    // alert("Redirecting")
-                    // window.location.href = "./index.php"
                     if(data == 0){
-                        alert("Deleted");
+                        alert("University Deleted Successfully");
                         window.location.reload();
                     }
+                }
+            });
+        }
+
+        function countEverything(){
+            // alert("Run");
+            var token = "<?php echo password_hash("countEverything", PASSWORD_DEFAULT);?>";
+            $.ajax({
+                type:'POST',
+                url:"ajax/count.php",
+                data:{token:token},
+                success:function(data){
+                    // alert(data);
                 }
             });
         }

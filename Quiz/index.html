@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <title>Document</title>
+</head>
+<body>
+    <div class="col-sm-12">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <div class="appName">
+                <h1>
+                    <!-- <p> -->
+                        Quiz Portal
+                    <!-- </p> -->
+                </h1>
+            </div>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+    <div class="col-sm-12 boxesDiv">
+        <div class="col-sm-4">
+            <div class="col-sm-12 container">
+                <i class="fas fa-user-cog"></i>
+                <button onclick="openAdminPage()">Admin Login</button>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="col-sm-12 container">
+                <i class="fas fa-user-graduate"></i>
+                <button onclick="openStudentPage()">Student Login</button>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="col-sm-12 container">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <button onclick="openTeacherPage()">Teacher Login</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    function openAdminPage() {
+        window.location.href = "admin/"
+    }
+    function openStudentPage() {
+        window.location.href = "Student/"
+    }
+    function openTeacherPage() {
+        window.location.href = "teacher/"
+    }
+</script>
+</html>

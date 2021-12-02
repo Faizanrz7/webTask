@@ -3,9 +3,6 @@
     session_start();
     $_SESSION['nam'] = "Faizan";
     if(isset($_POST['token']) && password_verify('getUni', $_POST['token'])){
-        // $email = $_POST['email'];
-        // $password = $_POST['password'];
-        
         $query = $db->prepare('SELECT * FROM university');
         $data = array();
         $execute = $query->execute($data);

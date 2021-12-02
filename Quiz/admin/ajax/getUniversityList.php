@@ -10,19 +10,13 @@
         $data = array();
         $execute = $query->execute($data);
 ?>
-
-        <!-- <select name="class" id="class" class="form-control">
-            <option value="0">SELECT CLASS</option> -->
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>S.No</td>
-                        <!-- <td>Name</td>
-                        <td>Class</td> -->
-                        <th>University</td>
-                        <th>DELETE</td>
-                    </tr>
-                </thead>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>S.No</th>
+                    <th>University</th>
+                    <th>Delete</th>
+                </tr>
+            <tbody>
 <?php
             $SNo = 1;
             while($datarow=$query->fetch()){
@@ -36,7 +30,7 @@
                 $SNo++;
             }
 ?>
-        <!-- </select> -->
+            </tbody>
         </table>
 <?php
     }

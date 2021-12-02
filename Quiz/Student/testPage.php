@@ -24,23 +24,9 @@
 <body>
     <h1>Hello <?php echo $_SESSION['studentName']?></h1>
     <h1>Questions for TestID <?php echo $_SESSION['activeTest']?></h1>
-    <div class="questionSet">
-        <!-- <div class="question">
-            QQQQQQQQQQQQQQQ
-        </div>
-        <div class="answers">
-            <input type="radio" id="option1" name="options" value="data[i].option1">
-            <label for="option1">data[i].option1</label><br>
-            <input type="radio" id="option2" name="options" value="data[i].option2">
-            <label for="css">data[i].option2</label><br>
-            <input type="radio" id="option3" name="options" value="data[i].option3">
-            <label for="javascript">data[i].option3</label> <br>
-            <input type="radio" id="option4" name="options" value="data[i].option4">
-            <label for="javascript">data[i].option4</label>  
-        </div> -->
-    </div>
-    <button onclick="previousQuestion(questions)">Previous</button>
-    <button onclick="nextQuestion(questions)">Next</button>
+    <div class="questionSet"></div>
+    <button id="previous" onclick="previousQuestion(questions)">Previous</button>
+    <button id="next" onclick="nextQuestion(questions)">Next</button>
     <div class="table-container" style = "margin-top: 50px;"></div>
 
     <script>
@@ -50,10 +36,18 @@
         let questions = {};
         function nextQuestion(number){
             questionNumber++;
+            $('#previous').prop('disabled', false);
+            if(questionNumber == questions.length - 1){
+                $('#next').prop('disabled', true);
+            }
             createDivForQuestion(questions);
         }
         function previousQuestion(number){
             questionNumber--;
+                $('#next').prop('disabled', false);
+                if(questionNumber == 0){
+                $('#previous').prop('disabled', true);
+            }
             createDivForQuestion(questions);
         }
         function getQuestion(){
@@ -85,19 +79,20 @@
             // alert(Object.keys(data).length);
             questions = data;
             // alert('Questions : ' + questions[0].question);
-            $(".questionSet").append(`<div class="question">
-            ${questions[questionNumber].question}
-                    </div>
-            <div class="answers">
-                <input type="radio" id="option1" name="options" value="A">
-                <label for="option1">${data[questionNumber].option1}</label><br>
-                <input type="radio" id="option2" name="options" value="B">
-                <label for="css">${data[questionNumber].option2}</label><br>
-                <input type="radio" id="option3" name="options" value="C">
-                <label for="javascript">${data[questionNumber].option3}</label> <br>
-                <input type="radio" id="option4" name="options" value="D">
-                <label for="javascript">${data[questionNumber].option4}</label>  
-            </div>`);
+            $(".questionSet").html(
+                `<div class="question">
+                    ${questions[questionNumber].question}
+                </div>
+                <div class="answers">
+                    <input type="radio" id="option1" name="options+${questionNumber}" value="A">
+                    <label for="option1">${data[questionNumber].option1}</label><br>
+                    <input type="radio" id="option2" name="options+${questionNumber}" value="B">
+                    <label for="css">${data[questionNumber].option2}</label><br>
+                    <input type="radio" id="option3" name="options+${questionNumber}" value="C">
+                    <label for="javascript">${data[questionNumber].option3}</label> <br>
+                    <input type="radio" id="option4" name="options+${questionNumber}" value="D">
+                    <label for="javascript">${data[questionNumber].option4}</label>  
+                </div>`);
        }
 
     </script>

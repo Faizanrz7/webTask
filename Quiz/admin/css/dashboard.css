@@ -14,7 +14,7 @@ body {
 
 .listContainer {
     background-color: #03a9f4;
-    height: 150vh;
+    height: 100vh;
     width: 350px;
 }
 
@@ -118,13 +118,6 @@ form {
 }
 
 
-/* #uniList {
-    margin-top: 20px;
-} */
-
-/* .hide{
-    visibility: hidden;
-} */
 
 .container input {
     width: 100%;

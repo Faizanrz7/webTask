@@ -42,6 +42,9 @@
             display: block;
             margin-top: 25px;
         }
+        th {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -66,15 +69,13 @@
             <h1>Class Details</h1>
             <form action="">
                 <input type="text" id="cname" placeholder="Class Name">
-                <!-- <div id="uniList"> -->
                     <select name="university" id="university" onchange="getClass()">
                         <option value="0">SELECT UNIVERSITY</option>
                     </select>
-                <!-- </div> -->
                 <input type="submit" onclick="adClass()">
             </form>
         </div>
-        <div class="table-container" style = "margin-top: 50px;"></div>
+        <div class="table-container" style = "margin-top: 20px; width: 900px;  height: 230px; overflow: auto;"></div>
     </div>
 
     <script>
@@ -83,8 +84,9 @@
         });
 
         getUni();
-        // getClass();
         getClassList();
+
+        countEverything();
 
         function getUni() {
             var token = "<?php echo password_hash("getUni", PASSWORD_DEFAULT);?>";
@@ -94,44 +96,14 @@
                 data:{token:token},
                 success:function(data){
                     $('#university').html(data);
-                    // $('#uniListInClass').html(data);
                 }
             });
         }
 
-        // function adClass() {
-        //     var tname = $('#cname').val();
-            // var uid = $('#university').val();
-        //     // var email = $('#email').val();
-        //     // alert(email + "  " + password);
-        //     if(tname != ""){
-        //         $.ajax({
-        //             type:'POST',
-        //             url:"ajax/addClass.php",
-        //             data:{cname: cname, uid:uid, token:token},
-        //             success:function(data){
-        //                 alert(data);
-        //                 // window.location = "./dashboard.php";
-        //                 // if(data == 0){
-        //                 //     // window.location = "dashboard.php";
-        //                 //     alert("University Added");
-        //                 // }
-        //                 // else {
-        //                 //     alert(data); 
-        //                 // }
-        //             }
-        //         });
-        //     }
-        //     else {
-        //         alert("Fill all the fields");
-        //     }
-        // }
-        
         function adClass() {
             var cname = $('#cname').val();
             var uid = $('#university').val();
 
-            // alert(email + "  " + password);
             var token = "<?php echo password_hash("addClass", PASSWORD_DEFAULT);?>";
             if(cname != ""){
                 $.ajax({
@@ -141,14 +113,6 @@
                     success:function(data){
                         alert(data);
                         window.location.reload();
-                        // window.location = "./dashboard.php";
-                        // if(data == 0){
-                        //     // window.location = "dashboard.php";
-                        //     alert("University Added");
-                        // }
-                        // else {
-                        //     alert(data); 
-                        // }
                     }
                 });
             }
@@ -158,32 +122,51 @@
         }
 
         function getClassList(){
-            // var uid = $('#university').val();
             var token = "<?php echo password_hash("getClassList", PASSWORD_DEFAULT);?>";
             $.ajax({
                 type:'POST',
                 url:"ajax/getClassList.php",
                 data:{token:token},
                 success:function(data){
-                    // $('.tab').html(data);
                     $('.table-container').html(data);
-                    // $('#uniListInClass').html(data);
                 }
             });
         }
 
         function logout(){
-            // alert("logout");
             $.ajax({
                 type:'POST',
                 url:"../ajax/logout.php",
                 data:{},
                 success:function(data){
-                    // $('.tab').html(data);
-                    // $('.table-container').html(data);
-                    // $('#uniListInClass').html(data);
-                    // alert("Redirecting")
                     window.location.href = "./index.php"
+                }
+            });
+        }
+
+        function deleteClass(cid) {
+            console.log(cid);
+            var token = "<?php echo password_hash("deleteClass", PASSWORD_DEFAULT);?>";
+            $.ajax({
+                type:'POST',
+                url:"ajax/deleteUni.php",
+                data:{cid:cid, token: token},
+                success:function(data){
+                    if(data == 0){
+                        alert("Class Successfully Deleted");
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+
+        function countEverything(){
+            var token = "<?php echo password_hash("countEverything", PASSWORD_DEFAULT);?>";
+            $.ajax({
+                type:'POST',
+                url:"ajax/count.php",
+                data:{token:token},
+                success:function(data){
                 }
             });
         }

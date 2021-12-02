@@ -1,7 +1,6 @@
 <?php
     include('connection.php');
     session_start();
-    $_SESSION['nam'] = "Faizan";
 
     if(isset($_POST['token']) && password_verify('addClass', $_POST['token'])){
         $cname = test_input($_POST['cname']);

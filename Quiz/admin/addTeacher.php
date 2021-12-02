@@ -84,8 +84,6 @@
                 <form action="">
                     <input type="text" id="tname" placeholder="Teacher Name">
                     <input type="email" id = "email" placeholder="Email">
-                    <!-- <div id="uniList"></div> -->
-                    <!-- <div id="classList"></div> -->
                     <select name="university" id="university" onchange="getClass()">
                         <option value="0">SELECT UNIVERSITY</option>
                     </select>
@@ -95,7 +93,7 @@
                     <input type="submit" onclick="addTe()">
                 </form>
             </div>
-            <div class="table-container"></div>
+            <div class="table-container" style = "margin-top: 20px; width: 900px;  height: 150px; overflow: auto;"></div>
         </div>
     </div>
 
@@ -106,14 +104,13 @@
 
         getUniForClass();
         getTeacher();
+        countEverything();
 
         function addTe() {
             var tname = $('#tname').val();
             var uid = $('#university').val();
             var cid = $('#class').val();
-            // alert(cid);
             var email = $('#email').val();
-            // alert(email + "  " + password);
             var token = "<?php echo password_hash("addTeacher", PASSWORD_DEFAULT);?>";
             if(tname != ""){
                 $.ajax({
@@ -123,14 +120,6 @@
                     success:function(data){
                         alert(data);
                         window.location.reload();
-                        // window.location = "./dashboard.php";
-                        // if(data == 0){
-                        //     // window.location = "dashboard.php";
-                        //     alert("University Added");
-                        // }
-                        // else {
-                        //     alert(data); 
-                        // }
                     }
                 });
             }
@@ -147,7 +136,6 @@
                 data:{token:token},
                 success:function(data){
                     $('#university').html(data);
-                    // $('#uniListInClass').html(data);
                 }
             });
         }
@@ -160,7 +148,6 @@
                 data:{token:token,uid:uid},
                 success:function(data){
                     $('#class').html(data);
-                    // $('#uniListInClass').html(data);
                 }
             });
         }
@@ -174,9 +161,7 @@
                 url:"ajax/getTeacher.php",
                 data:{token:token},
                 success:function(data){
-                    // $('.tab').html(data);
                     $('.table-container').html(data);
-                    // $('#uniListInClass').html(data);
                 }
             });
         }
@@ -188,11 +173,36 @@
                 url:"../ajax/logout.php",
                 data:{},
                 success:function(data){
-                    // $('.tab').html(data);
-                    // $('.table-container').html(data);
-                    // $('#uniListInClass').html(data);
-                    // alert("Redirecting")
                     window.location.href = "./index.php"
+                }
+            });
+        }
+
+        function deleteTeacher(tid){
+            // alert(tid);
+            var token = "<?php echo password_hash("deleteTeacher", PASSWORD_DEFAULT);?>";
+            $.ajax({
+                type:'POST',
+                url:"ajax/deleteUni.php",
+                data:{tid:tid, token: token},
+                success:function(data){
+                    if(data == 0){
+                        alert("Teacher Deleted Successfully");
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+
+        function countEverything(){
+            // alert("Run");
+            var token = "<?php echo password_hash("countEverything", PASSWORD_DEFAULT);?>";
+            $.ajax({
+                type:'POST',
+                url:"ajax/count.php",
+                data:{token:token},
+                success:function(data){
+                    // alert(data);
                 }
             });
         }

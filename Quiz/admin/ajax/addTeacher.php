@@ -1,7 +1,6 @@
 <?php
     include('connection.php');
     session_start();
-    $_SESSION['nam'] = "Faizan";
 
 
     if(isset($_POST['token']) && password_verify('addTeacher', $_POST['token'])){
@@ -19,7 +18,7 @@
         }
         else{
             if(($tname !='')){
-                $query = $db->prepare('INSERT INTO teacher(name,email, uid, cid, password) values(?,?,?,?,?)');
+                $query = $db->prepare('INSERT INTO teacher(name,email,uid,cid, password) values(?,?,?,?,?)');
                 $data = array($tname,$email,$uid,$cid,password_hash(123456, PASSWORD_DEFAULT));
                 $execute = $query->execute($data);
                 if($execute){

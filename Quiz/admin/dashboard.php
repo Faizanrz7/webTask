@@ -18,8 +18,8 @@
 
     <style>
         .container {
-            height: 300px;
-            width: 800px;
+            /* height: 300px;
+            width: 800px; */
             display: flex;
             /* align-items: center; */
             flex-direction: column;
@@ -66,12 +66,6 @@
         font-size: xxx-large;
         font-weight: 800;
     }
-        /* .teacherList {
-            height: 400px;
-            flex-direction: column;
-            overflow: auto;
-            gap: 15px;
-        } */
         input {
             width: 100%;
             margin-bottom: 20px;
@@ -135,36 +129,26 @@
             <h1>WELCOME <?php echo $_SESSION['adminName'];?></h1>
         </div>
         <div class="formContainer col-sm-12">
-            <!-- <div class="teacherList container">
-                <h3>Teacher List</h3>
-                <div class="table-container"></div>
-            </div>
-            <!-- <div class="container">
-                Class List
-            </div>
-            <div class="container">
-                Teacher List
-            </div> -->
             <div class="col-sm-2"></div>
             <div class="card col-sm-3">
                 <h1>University</h1>
                 <div class="count">
                     <i class="fas fa-university"></i>
-                    <h1>1</h1>
+                    <h1><?php echo $_SESSION['universityCount'] ?></h1>
                 </div>
             </div>
             <div class="card col-sm-3">
                 <h1>Class</h1>
                 <div class="count">
                     <i class="fas fa-school"></i>
-                    <h1>1</h1>
+                    <h1><?php echo $_SESSION['classCount'] ?></h1>
                 </div>
             </div>
             <div class="card col-sm-3">
                 <h1>Teacher</h1>
                 <div class="count">
                     <i class="fas fa-chalkboard-teacher"></i>
-                    <h1>1</h1>
+                    <h1><?php echo $_SESSION['teacherCount'] ?></h1>
                 </div>
             </div>
             
@@ -173,11 +157,6 @@
     </div>
 
     <script>
-        $('form').submit(function(e) {
-            e.preventDefault();
-        });
-
-        getTeacher();
         function addUni() {
             var uname = $('#uname').val();
             // alert(email + "  " + password);
@@ -189,14 +168,6 @@
                     data:{uname: uname, token:token},
                     success:function(data){
                         alert(data);
-                        // window.location = "./dashboard.php";
-                        // if(data == 0){
-                        //     // window.location = "dashboard.php";
-                        //     alert("University Added");
-                        // }
-                        // else {
-                        //     alert(data); 
-                        // }
                     }
                 });
             }
@@ -213,9 +184,7 @@
                 url:"ajax/getTeacher.php",
                 data:{token:token},
                 success:function(data){
-                    // $('.tab').html(data);
                     $('.table-container').html(data);
-                    // $('#uniListInClass').html(data);
                 }
             });
         }
@@ -227,10 +196,6 @@
                 url:"../ajax/logout.php",
                 data:{},
                 success:function(data){
-                    // $('.tab').html(data);
-                    // $('.table-container').html(data);
-                    // $('#uniListInClass').html(data);
-                    // alert("Redirecting")
                     window.location.href = "./index.php"
                 }
             });

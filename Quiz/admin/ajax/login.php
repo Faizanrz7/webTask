@@ -20,6 +20,24 @@
                     echo "Password NOT Correct";
                 }
             }
+            // Counting datarow and storing in session variables
+            $query = $db->prepare('SELECT * FROM class');
+            $data = array();
+            $execute =  $query->execute($data);
+
+            $_SESSION['classCount'] = $query->rowcount();
+
+            $query = $db->prepare('SELECT * FROM university');
+            $data = array();
+            $execute =  $query->execute($data);
+
+            $_SESSION['universityCount'] = $query->rowcount();
+
+            $query = $db->prepare('SELECT * FROM teacher');
+            $data = array();
+            $execute =  $query->execute($data);
+
+            $_SESSION['teacherCount'] = $query->rowcount();
         }
         else {
             echo "Please Ask your Teacher to add you.";

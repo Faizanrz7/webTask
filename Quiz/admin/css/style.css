@@ -9,9 +9,7 @@ body {
     /* background-size: contain; */
 }
 .container {
-    margin-top: 20vh;
-    /* background-color: blue; */
-    /* background: #ffffff1a; */
+    margin-top: 22vh;
     backdrop-filter: blur(15px);
     width: 400px;
     height: 450px;
@@ -22,6 +20,7 @@ body {
     padding: 70px 30px;
     box-shadow: 0 0 30px;
 }
+
 
 .container h1{
     margin: 0;
