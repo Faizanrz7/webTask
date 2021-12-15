@@ -96,7 +96,7 @@
                     <input type="submit" onclick="addStudent()">
                 </form>
             </div>
-            <div class="table-container" style = "margin-top: 50px;"></div>
+            <div class="table-container" style = "margin-top: 20px; width: 900px;  height: 300px; overflow: auto;"></div>
         </div>
     </div>
 
@@ -234,6 +234,22 @@
             }
         }
 
+        function deleteStudent(sid) {
+            console.log(sid);
+            var token = "<?php echo password_hash("deleteStudent", PASSWORD_DEFAULT);?>";
+            $.ajax({
+                type:'POST',
+                url:"ajax/delete.php",
+                data:{sid:sid, token: token},
+                success:function(data){
+                    if(data == 0){
+                        alert("Student Successfully Deleted");
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+
         function logout(){
             // alert("logout");
             $.ajax({
@@ -245,7 +261,7 @@
                     // $('.table-container').html(data);
                     // $('#uniListInClass').html(data);
                     // alert("Redirecting")
-                    window.location.href = "./index.php"
+                    window.location.href = "../index.html"
                 }
             });
         }

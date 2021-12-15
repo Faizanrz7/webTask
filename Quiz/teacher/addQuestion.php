@@ -17,9 +17,10 @@
 
     <style>
         .container {
-            height: 350px;
+            height: 700px;
             /* margin-top: 30px; */
             overflow: auto;
+            width: 40vw;
         }
         input,select {
             width: 100%;
@@ -92,17 +93,8 @@
         <div class="formContainer">
             <div class="container" id="addTeacher">
                 <!-- <h1>Student Details</h1> -->
-                <form action="">
-                    <!-- <input type="text" id="sname" placeholder="Student Name"> -->
-                    <!-- <input type="email" id = "email" placeholder="Email"> -->
-                    <!-- <div id="uniList"></div> -->
-                    <!-- <div id="classList"></div> -->
-                    <!-- <select name="university" id="university" onchange="getClass()">
-                        <option value="0">SELECT UNIVERSITY</option>
-                    </select> -->
-                    <select name="test" id="test">
-                        <!-- <option value="0">SELECT TEST</option> -->
-                    </select>
+                <form action="" id = "excelform">
+                    <select name="test" id="test"></select>
                     <div class="questionDiv">
                         <label for="Question">Question</label>
                         <textarea id = "question" name = "question"></textarea>
@@ -126,11 +118,18 @@
                             <option value="D">D</option>
                         </select>
                     </div>
-
+                    <!-- <input type = "file" name = "excel" id = "excel"> -->
+                    <!-- <input type="submit" onclick="addQuestion()"> -->
                     <input type="submit" onclick="addQuestion()">
                 </form>
             </div>
-            <div class="table-container" style = "margin-top: 50px;"></div>
+            <div>
+                <form action="" >
+                    <input type="file" id = "excelform">
+                    <input type="submit" onclick="addFile()">
+                </form>
+            </div>
+            <!-- <div class="table-container" style = "margin-top: 50px;"></div> -->
         </div>
     </div>
 
@@ -176,14 +175,24 @@
             else {
                 alert("Fill all the fields");
             }
-
-            // alert(testId);
-            // alert(question);
-            // alert(option1);
-            // alert(option2);
-            // alert(option3);
-            // alert(option4);
-            // alert(cOption);
+        }
+        function addFile(){
+            console.log("Cakkseee");
+            var excelform = document.getElementById('excelform');
+            var data = new FormData(excelform);
+            console.log(data);
+            var token = "<?php echo password_hash("addFile", PASSWORD_DEFAULT);?>";
+            $.ajax({
+                type:'POST',
+                url:"ajax/excelsql.php",
+                contentType:false,
+                processData:false,
+                // data:{testId: testId, question : question, option1: option1, option2: option2, option3:option3, option4:option4, cOption:cOption, token:token},
+                data: data,
+                success:function(data){
+                    alert(data);
+                }
+            });
         }
 
         function addTe() {
@@ -324,7 +333,7 @@
                     // $('.table-container').html(data);
                     // $('#uniListInClass').html(data);
                     // alert("Redirecting")
-                    window.location.href = "./index.php"
+                    window.location.href = "../index.html"
                 }
             });
         }

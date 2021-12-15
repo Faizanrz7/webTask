@@ -157,29 +157,22 @@
                 Teacher List
             </div> -->
             <div class="col-sm-2"></div>
-            <div class="card col-sm-3">
-                <h1>University</h1>
+            <div class="card col-sm-4">
+                <h1>Students</h1>
                 <div class="count">
-                    <i class="fas fa-university"></i>
+                    <i class="fas fa-user-graduate"></i>
                     <h1>1</h1>
                 </div>
             </div>
-            <div class="card col-sm-3">
-                <h1>Class</h1>
+            <div class="card col-sm-4">
+                <h1>Tests</h1>
                 <div class="count">
-                    <i class="fas fa-school"></i>
-                    <h1>1</h1>
-                </div>
-            </div>
-            <div class="card col-sm-3">
-                <h1>Teacher</h1>
-                <div class="count">
-                    <i class="fas fa-chalkboard-teacher"></i>
+                    <i class="fas fa-file-alt"></i>
                     <h1>1</h1>
                 </div>
             </div>
             
-            <div class="col-sm-1"></div>
+            <div class="col-sm-2"></div>
         </div>
     </div>
 
@@ -242,7 +235,7 @@
                     // $('.table-container').html(data);
                     // $('#uniListInClass').html(data);
                     // alert("Redirecting")
-                    window.location.href = "./index.php"
+                    window.location.href = "../index.html"
                 }
             });
         }

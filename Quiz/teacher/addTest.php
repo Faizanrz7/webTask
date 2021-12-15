@@ -17,20 +17,35 @@
 
     <style>
         .container {
-            height: 100px;
-            width: 100%;
+            height: 500px;
+            /* width: 100%;
             margin-top: 30px;
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             gap: 15px;
-            align-items: center;
+            align-items: center; */
         }
-        form{
+        /* form{
             display: flex;
             flex-direction: row;
             gap: 15px;
             align-items: center;
+        } */
+
+        form {
+            margin-top: 10px;
         }
+        
+        .formContainer {
+            margin-top: 2vh;
+            width: 60vw;
+            display: flex;
+            flex-direction: row;
+            /* background: #03a9f4; */
+            gap: 25px;
+        }
+
+        
         input,select {
             width: 100%;
             margin-bottom: 20px;
@@ -92,11 +107,16 @@
         </div>
         <div class="formContainer">
             <div class="container" id="addTeacher">
-                <!-- <h1>Test Details</h1> -->
+                <h1>Test Details</h1>
                 <form action="">
                     <input type="text" id="testName" placeholder="Test Name">
+                    <input type="date" id="date" placeholder="Test Date">
+                    <input type="text" id="duration" placeholder="Test Duration">
+                    <input type="text" id="marks" placeholder="Total Marks">
+                    <input type="text" id="noOfQuestions" placeholder="Number of Questions">
+
                     <!-- <input type="email" id = "email" placeholder="Email"> -->
-                    <div id="testList"></div>
+                    <!-- <div id="testList"></div> -->
                     <!-- <div id="classList"></div> -->
                     <!-- <select name="university" id="university" onchange="getClass()">
                         <option value="0">SELECT UNIVERSITY</option>
@@ -107,7 +127,7 @@
                     <input type="submit" onclick="addTest()">
                 </form>
             </div>
-            <div class="table-container" style = "margin-top: 50px;"></div>
+            <div class="table-container" style = "margin-top: 20px; width: 800px;  height: 500px; overflow: auto;"></div>
         </div>
     </div>
 
@@ -229,18 +249,20 @@
 
         function addTest(){
             var testName = $('#testName').val();
-            // var uid = $('#university').val();
-            // var cid = $('#class').val();
+            var date = $('#date').val();
+            var duration = $('#duration').val();
+            var marks = $('#marks').val();
+            var noOfQuestions = $('#noOfQuestions').val();
+            console.log(testName + date + duration + marks + noOfQuestions );
             // alert(cid);
-            // var email = $('#email').val();
             // alert(email + "  " + password);
             var token = "<?php echo password_hash("addTest", PASSWORD_DEFAULT);?>";
             var cid = "<?php echo $_SESSION['cid'];?>";
-            if(testName != ""){
+            if(testName != "" || date != "" || duration != "" || marks != "" || noOfQuestions != ""){
                 $.ajax({
                     type:'POST',
                     url:"ajax/addTest.php",
-                    data:{testName: testName, cid:cid, token:token},
+                    data:{testName: testName, cid:cid, date:date, duration:duration, marks:marks, noOfQuestions: noOfQuestions, token:token},
                     success:function(data){
                         alert(data);
                         window.location.reload();
@@ -250,6 +272,22 @@
             else {
                 alert("Fill all the fields");
             }
+        }
+
+        function deleteTest(tid) {
+            console.log(tid);
+            var token = "<?php echo password_hash("deleteTest", PASSWORD_DEFAULT);?>";
+            $.ajax({
+                type:'POST',
+                url:"ajax/delete.php",
+                data:{tid:tid, token: token},
+                success:function(data){
+                    if(data == 0){
+                        alert("Test Successfully Deleted");
+                        window.location.reload();
+                    }
+                }
+            });
         }
 
         function logout(){
@@ -263,7 +301,7 @@
                     // $('.table-container').html(data);
                     // $('#uniListInClass').html(data);
                     // alert("Redirecting")
-                    window.location.href = "./index.php"
+                    window.location.href = "../index.html"
                 }
             });
         }

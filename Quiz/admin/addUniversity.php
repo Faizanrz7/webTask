@@ -124,7 +124,7 @@
                 url:"../ajax/logout.php",
                 data:{},
                 success:function(data){
-                    window.location.href = "./index.php"
+                    window.location.href = "../index.html"
                 }
             });
         }

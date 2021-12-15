@@ -26,7 +26,7 @@
             }
         }
         else {
-            echo "Please Ask your Teacher to add you.";
+            echo "You are not registered.";
         }
     }
     else {
