@@ -17,10 +17,10 @@
 
     <style>
         .container {
-            height: 700px;
+            height: 300px;
             /* margin-top: 30px; */
             overflow: auto;
-            width: 40vw;
+            width: 30vw;
         }
         input,select {
             width: 100%;
@@ -50,6 +50,17 @@
             border: none;
             outline: none;
             background: #fff;
+            /* background: #03a9f4; */
+            /* color: #333; */
+            color: #333;
+            font-size: 20px;
+            display: block;
+            margin-top: 25px;
+        }
+        input[type=file]{
+            border: none;
+            outline: none;
+            /* background: #fff; */
             /* background: #03a9f4; */
             /* color: #333; */
             color: #333;
@@ -91,9 +102,9 @@
             <h1>Add Student</h1>
         </div>
         <div class="formContainer">
-            <div class="container" id="addTeacher">
+            <!-- <div class="container" id="addTeacher"> -->
                 <!-- <h1>Student Details</h1> -->
-                <form action="" id = "excelform">
+                <!-- <form action="" id = "excelform">
                     <select name="test" id="test"></select>
                     <div class="questionDiv">
                         <label for="Question">Question</label>
@@ -120,12 +131,13 @@
                     </div>
                     <!-- <input type = "file" name = "excel" id = "excel"> -->
                     <!-- <input type="submit" onclick="addQuestion()"> -->
-                    <input type="submit" onclick="addQuestion()">
-                </form>
-            </div>
-            <div>
-                <form action="" >
-                    <input type="file" id = "excelform">
+                    <!-- <input type="submit" onclick="addQuestion()">
+                </form> --> -->
+            <!-- </div> -->
+            <div class="container" id="addTeacher">
+                <form id = "excelform" action="" >
+                    <select name="test" id="test"></select>
+                    <input type="file" name = "excel_file" id = "excel_file">
                     <input type="submit" onclick="addFile()">
                 </form>
             </div>
@@ -181,7 +193,6 @@
             var excelform = document.getElementById('excelform');
             var data = new FormData(excelform);
             console.log(data);
-            var token = "<?php echo password_hash("addFile", PASSWORD_DEFAULT);?>";
             $.ajax({
                 type:'POST',
                 url:"ajax/excelsql.php",
