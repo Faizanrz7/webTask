@@ -13,7 +13,7 @@
     <script src=" https://code.jquery.com/jquery-3.0.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
-    <title>Document</title>
+    <title>Add Questions</title>
 
     <style>
         .container {
@@ -206,50 +206,6 @@
             });
         }
 
-        function addTe() {
-            var sname = $('#sname').val();
-            var uid = $('#university').val();
-            var cid = $('#class').val();
-            // alert(cid);
-            var email = $('#email').val();
-            // alert(email + "  " + password);
-            var token = "<?php echo password_hash("addTeacher", PASSWORD_DEFAULT);?>";
-            if(sname != ""){
-                $.ajax({
-                    type:'POST',
-                    url:"ajax/addTeacher.php",
-                    data:{sname: sname,email:email,uid:uid,cid:cid, token:token},
-                    success:function(data){
-                        alert(data);
-                        window.location.reload();
-                        // window.location = "./dashboard.php";
-                        // if(data == 0){
-                        //     // window.location = "dashboard.php";
-                        //     alert("University Added");
-                        // }
-                        // else {
-                        //     alert(data); 
-                        // }
-                    }
-                });
-            }
-            else {
-                alert("Fill all the fields");
-            }
-        }
-
-        function getUniForClass() {
-            var token = "<?php echo password_hash("getUni", PASSWORD_DEFAULT);?>";
-            $.ajax({
-                type:'POST',
-                url:"ajax/getUniForClass.php",
-                data:{token:token},
-                success:function(data){
-                    $('#university').html(data);
-                    // $('#uniListInClass').html(data);
-                }
-            });
-        }
         function getTest() {
             var classId = <?php echo $_SESSION['cid'];?>;
             // alert(classId);
@@ -267,71 +223,6 @@
         }
 
         
-        function getStudentList(){
-            // var uid = $('#university').val();
-            var token = "<?php echo password_hash("getStudentList", PASSWORD_DEFAULT);?>";
-            var cid = "<?php echo $_SESSION['cid'];?>";
-            $.ajax({
-                type:'POST',
-                url:"ajax/getStudentList.php",
-                data:{token:token, cid:cid},
-                success:function(data){
-                    // $('.tab').html(data);
-                    // alert(data);
-                    $('.table-container').html(data);
-                    // $('#uniListInClass').html(data);
-                }
-            });
-        }
-
-
-        function getTeacher(){
-            // var uid = $('#university').val();
-            var token = "<?php echo password_hash("getTeacherList", PASSWORD_DEFAULT);?>";
-            $.ajax({
-                type:'POST',
-                url:"ajax/getTeacher.php",
-                data:{token:token},
-                success:function(data){
-                    // $('.tab').html(data);
-                    $('.table-container').html(data);
-                    // $('#uniListInClass').html(data);
-                }
-            });
-        }
-
-        function addStudent(){
-            var sname = $('#sname').val();
-            // var uid = $('#university').val();
-            // var cid = $('#class').val();
-            // alert(cid);
-            var email = $('#email').val();
-            // alert(email + "  " + password);
-            var token = "<?php echo password_hash("addStudent", PASSWORD_DEFAULT);?>";
-            var cid = "<?php echo $_SESSION['cid'];?>";
-            if(sname != ""){
-                $.ajax({
-                    type:'POST',
-                    url:"ajax/addStudent.php",
-                    data:{sname: sname,email:email, cid:cid, token:token},
-                    success:function(data){
-                        alert(data);
-                        window.location.reload();
-                        // window.location = "./dashboard.php";
-                        // if(data == 0){
-                        //     // window.location = "dashboard.php";
-                        //     alert("University Added");
-                        // }
-                        // else {
-                        //     alert(data); 
-                        // }
-                    }
-                });
-            }
-            else {
-                alert("Fill all the fields");
-            }
-        }
 
         function logout(){
             // alert("logout");
@@ -340,10 +231,6 @@
                 url:"ajax/logout.php",
                 data:{},
                 success:function(data){
-                    // $('.tab').html(data);
-                    // $('.table-container').html(data);
-                    // $('#uniListInClass').html(data);
-                    // alert("Redirecting")
                     window.location.href = "../index.html"
                 }
             });

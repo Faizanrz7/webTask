@@ -13,7 +13,7 @@
     <script src=" https://code.jquery.com/jquery-3.0.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
-    <title>Document</title>
+    <title>Add Test</title>
 
     <style>
         .container {
@@ -139,65 +139,7 @@
         // getUniForClass();
         getTest();
 
-        function addTe() {
-            var testName = $('#testName').val();
-            var uid = $('#university').val();
-            var cid = $('#class').val();
-            // alert(cid);
-            var email = $('#email').val();
-            // alert(email + "  " + password);
-            var token = "<?php echo password_hash("addTeacher", PASSWORD_DEFAULT);?>";
-            if(testName != ""){
-                $.ajax({
-                    type:'POST',
-                    url:"ajax/addTeacher.php",
-                    data:{testName: testName,email:email,uid:uid,cid:cid, token:token},
-                    success:function(data){
-                        alert(data);
-                        window.location.reload();
-                        // window.location = "./dashboard.php";
-                        // if(data == 0){
-                        //     // window.location = "dashboard.php";
-                        //     alert("University Added");
-                        // }
-                        // else {
-                        //     alert(data); 
-                        // }
-                    }
-                });
-            }
-            else {
-                alert("Fill all the fields");
-            }
-        }
-
-        function getUniForClass() {
-            var token = "<?php echo password_hash("getUni", PASSWORD_DEFAULT);?>";
-            $.ajax({
-                type:'POST',
-                url:"ajax/getUniForClass.php",
-                data:{token:token},
-                success:function(data){
-                    $('#university').html(data);
-                    // $('#uniListInClass').html(data);
-                }
-            });
-        }
-        function getClass() {
-            var uid = $('#university').val();
-            var token = "<?php echo password_hash("getClass", PASSWORD_DEFAULT);?>";
-            $.ajax({
-                type:'POST',
-                url:"ajax/getClass.php",
-                data:{token:token,uid:uid},
-                success:function(data){
-                    $('#class').html(data);
-                    // $('#uniListInClass').html(data);
-                }
-            });
-        }
-
-
+       
         function getTest(){
             // var uid = $('#university').val();
             var token = "<?php echo password_hash("getTestList", PASSWORD_DEFAULT);?>";
@@ -213,40 +155,7 @@
                 }
             });
         }
-
-        function addStudent(){
-            var testName = $('#testName').val();
-            // var uid = $('#university').val();
-            // var cid = $('#class').val();
-            // alert(cid);
-            var email = $('#email').val();
-            // alert(email + "  " + password);
-            var token = "<?php echo password_hash("addStudent", PASSWORD_DEFAULT);?>";
-            var cid = "<?php echo $_SESSION['cid'];?>";
-            if(testName != ""){
-                $.ajax({
-                    type:'POST',
-                    url:"ajax/addStudent.php",
-                    data:{testName: testName,email:email, cid:cid, token:token},
-                    success:function(data){
-                        alert(data);
-                        window.location.reload();
-                        // window.location = "./dashboard.php";
-                        // if(data == 0){
-                        //     // window.location = "dashboard.php";
-                        //     alert("University Added");
-                        // }
-                        // else {
-                        //     alert(data); 
-                        // }
-                    }
-                });
-            }
-            else {
-                alert("Fill all the fields");
-            }
-        }
-
+        
         function addTest(){
             var testName = $('#testName').val();
             var date = $('#date').val();

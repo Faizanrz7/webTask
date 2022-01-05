@@ -4,25 +4,20 @@
     $_SESSION['nam'] = "Faizan";
     // echo "Faizan";
     if(isset($_POST['token']) && password_verify('getTestList', $_POST['token'])){
-        // $email = $_POST['email'];
-        // $password = $_POST['password'];
-        // echo "Faizan";
         $cid = $_POST['cid'];
-        // $query = $db->prepare('SELECT test.name, class.cname, university.uname FROM test JOIN class on test.cid = class.id JOIN university on class.uid = university.uid WHERE cid=?;');
         $query = $db->prepare('SELECT * FROM test WHERE cid=?;');
         $data = array($cid);
         $execute = $query->execute($data);
 ?>
 
-        <!-- <!-- <select name="class" id="class" class="form-control"> -->
-            <!-- <option value="0">SELECT CLASS</option> -->
-            <table class="table-bordered">
+            <table class="table table-striped table-bordered ">
                 <tr>
-                    <td>S.No</td>
-                    <td>Test</td>
-                    <td>Start</td>
-                    <!-- <td>Class</td> -->
-                    <!-- <td>University</td> -->
+                    <th>S.No</th>
+                    <th>Test</th>
+                    <th>Duration (in hrs)</th>
+                    <th>Total Marks</th>
+                    <th>Date</th>
+                    <th>Start</th>
                 </tr>
 <?php
             $SNo = 1;
@@ -31,14 +26,28 @@
             <tr>
                 <td><?php echo $SNo?></td>
                 <td><?php echo $datarow['name']?></td>
+                <td><?php echo $datarow['duration']?></td>
+                <td><?php echo $datarow['marks']?></td>
+                <td><?php echo $datarow['date']?></td>
+                <?php
+                    $testDate = $datarow['date'];
+                    if($testDate == date("Y-m-d")){
+                    ?>
+                        <td><button class="btn" value = "<?php echo $datarow['id']?>" onclick = "takeTest(this.value)">Take Test</button></td>
+                    <?php
+                    }
+                    else{
+                    ?> 
+                        <td><b>Test Not Scheduled For Today</b></td>
+                    <?php
+                    }
+                    ?>
                 
-                <td><button value = "<?php echo $datarow['id']?>" onclick = "takeTest(this.value)">Take Test</button></td>
             </tr>
 <?php
                 $SNo++;
             }
 ?>
-        <!-- </select> -->
         </table>
 <?php
     }

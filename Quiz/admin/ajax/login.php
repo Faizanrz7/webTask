@@ -6,8 +6,8 @@
         $email = $_POST['email'];
         $password = $_POST['password'];
         
-        $query = $db->prepare('SELECT * FROM users_details WHERE email=?');
-        $data = array($email);
+        $query = $db->prepare('SELECT * FROM users_details WHERE email=? AND roles=?');
+        $data = array($email, 'admin');
         $execute = $query->execute($data);
         if($query->rowcount() > 0){
             while($datarow=$query->fetch()){
@@ -40,7 +40,7 @@
             $_SESSION['teacherCount'] = $query->rowcount();
         }
         else {
-            echo "Please Ask your Teacher to add you.";
+            echo "You are not an Admin.";
         }
     }
     else {
